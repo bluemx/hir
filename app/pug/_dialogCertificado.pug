@@ -1,0 +1,22 @@
+q-dialog(v-model="dialogCert" persistent)
+    q-card.shadow-0.rounded-borders
+        q-toolbar
+            q-toolbar-title.text-body2.text-primary.text-bold {{itemActive[3]}}
+            q-btn(v-close-popup icon="close" color="primary" flat)
+        q-card-section
+            .row.justify-center.items-center
+                .col-10.col-sm-6.bg-primary.q-pa-sm.rounded-borders
+                    .row.items-center.text-center
+                        div.col-6.bg-white.rounded-borders.q-pa-sm: q-img(:src="'app/cert/'+itemActive[0]+'.png'" style="max-width: 120px")
+                        div.col-6.text-body1.text-bold.text-white {{itemActive[2]}}
+
+
+            p(v-html="itemActive[1]").q-my-md.text-center
+        q-card-section
+            q-separator.q-mb-lg
+            .row.items-center
+                .col-12.col-sm-4.text-center
+                    q-btn(color="grey" unelevated  label="Cerrar" v-close-popup)
+                .col-12.col-sm-8.text-center
+                    q-btn(color="primary" unelevated  label="Seleccionar y Jugar" size="lg" @click="chooseit(itemActive[0])")
+                    

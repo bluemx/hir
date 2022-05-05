@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        include app/pug/_head.pug
+    body 
+        #q-app
+            .containment.q-pa-md
+                //Header
+                .topbar.bg-secondary.rounded-borders
+                    .logo: q-img(src="app/hircasa.png" alt="HIR Casa" style="max-width: 120px; min-height: 120px" fit="contain")
+                //Certificados
+                include app/pug/_certificados.pug
+                //Certificados (Dialog - Modal)
+                include app/pug/_dialogCertificado.pug
+                //Actividad
+                include app/pug/_activity.pug
+                //Ticket
+                //include app/pug/_ticket.pug
+            
+            //Footer Blue
+            include app/pug/_blue.pug
+            
+
+        include app/pug/_scripts.pug

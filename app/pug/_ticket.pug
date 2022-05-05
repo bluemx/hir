@@ -1,0 +1,15 @@
+q-dialog(v-model="dialogTicket" persistent maximized)
+    q-card.bg-primary.shadow-0
+        q-card-section(style="max-width: 480px; ").text-white.justify-center.items-center.flex.column.full-height.q-mx-auto
+
+            .text-h6.text-bold Ingresa tu número de ticket.
+            q-input(v-model="ticketNum" input-class="text-center" standout).bg-white.rounded-borders.q-my-md.full-width
+                template(v-slot:prepend): q-icon(name="confirmation_number")
+            q-btn(@click="" label="Continuar" push size="lg" text-color="primary" color="white")
+            //q-btn(@click="ticketCheck" label="Continuar" push size="lg" text-color="primary" color="white")
+
+q-dialog(v-model="dialogError" persistent maximized)
+    q-card.bg-primary.shadow-0
+        q-card-section(style="max-width: 480px; ").text-white.justify-center.items-center.flex.column.full-height.q-mx-auto
+
+            .text-h6.text-center.text-bold(v-html="dialogErrorTxt")

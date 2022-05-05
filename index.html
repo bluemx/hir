@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIR Casa</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&amp;display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.prod.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="app/app.css">
+  </head>
+  <body> 
+    <div id="q-app">
+      <div class="containment q-pa-md">
+        <!--Header-->
+        <div class="topbar bg-secondary rounded-borders">
+          <div class="logo">
+            <q-img src="app/hircasa.png" alt="HIR Casa" style="max-width: 120px; min-height: 120px" fit="contain"></q-img>
+          </div>
+        </div>
+        <!--Certificados-->
+        <div class="row">
+          <div class="col-10 offset-1 text-center q-py-md">
+            <div class="text-h5">Bienvenido a</div>
+            <div class="text-h4 text-bold text-secondary">Financiando tu casa</div>
+            <div class="text-h6 q-mt-md">Antes de empezar, por favor indica el certificado electrónico que quisieras recibir en caso de resultar ganador.</div>
+            <!--.text-h6.q-mt-md Selecciona tu certificado de valor indicado.-->
+          </div>
+        </div>
+        <section class="bg-secondary q-pa-md rounded-borders shadow-24" v-if="loading==false">
+          <div class="row q-mt-3 justify-center q-col-gutter-md">
+            <div class="col-6 col-sm-3 col-md-2" v-for="(i, index) in certificados" @click="openit(i)">
+              <q-card class="shadow-0 cursor-pointer bg-primary rounded-borders">
+                <q-card-section class="text-center q-pa-xs">
+                  <div class="bg-white rounded-borders q-pa-lg">
+                    <q-img :src="'app/cert/'+i[0]+'.png'" style="max-width: 120px"></q-img>
+                  </div>
+                  <div class="text-body1 text-bold text-white">{{i[2]}}</div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </div>
+        </section>
+        <!--Certificados (Dialog - Modal)-->
+        <q-dialog v-model="dialogCert" persistent>
+          <q-card class="shadow-0 rounded-borders">
+            <q-toolbar>
+              <q-toolbar-title class="text-body2 text-primary text-bold">{{itemActive[3]}}</q-toolbar-title>
+              <q-btn v-close-popup icon="close" color="primary" flat></q-btn>
+            </q-toolbar>
+            <q-card-section>
+              <div class="row justify-center items-center">
+                <div class="col-10 col-sm-6 bg-primary q-pa-sm rounded-borders">
+                  <div class="row items-center text-center">
+                    <div class="col-6 bg-white rounded-borders q-pa-sm">
+                      <q-img :src="'app/cert/'+itemActive[0]+'.png'" style="max-width: 120px"></q-img>
+                    </div>
+                    <div class="col-6 text-body1 text-bold text-white">{{itemActive[2]}}</div>
+                  </div>
+                </div>
+              </div>
+              <p class="q-my-md text-center" v-html="itemActive[1]"></p>
+            </q-card-section>
+            <q-card-section>
+              <q-separator class="q-mb-lg"></q-separator>
+              <div class="row items-center">
+                <div class="col-12 col-sm-4 text-center">
+                  <q-btn color="grey" unelevated label="Cerrar" v-close-popup></q-btn>
+                </div>
+                <div class="col-12 col-sm-8 text-center">
+                  <q-btn color="primary" unelevated label="Seleccionar y Jugar" size="lg" @click="chooseit(itemActive[0])"></q-btn>
+                </div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-dialog>
+        <!--Actividad-->
+        <q-dialog v-model="dialogActivity" maximized persistent>
+          <q-card class="activitycard">
+            <iframe v-if="dialogActivity" :src="'activities/'+loadgame+'/index.html'" ref="activity" @load="activityFN"></iframe>
+            <q-dialog v-model="dialogFinish" position="bottom" seamless>
+              <q-card class="bg-primary">
+                <q-card-section class="text-center q-pb-xs">
+                  <div><span class="q-pa-sm bg-white rounded-borders text-body1">ID de participación:
+                      <q-badge :label="idparticipacion" color="primary"></q-badge></span></div>
+                  <div class="q-ma-xs q-mt-md">
+                    <q-btn label="Terminar" push color="dark" no-caps type="a" href="https://hircasa.com" target="_parent"></q-btn>
+                  </div>
+                </q-card-section>
+              </q-card>
+            </q-dialog>
+          </q-card>
+        </q-dialog>
+        <!--Ticket-->
+        <!--include app/pug/_ticket.pug-->
+      </div>
+      <!--Footer Blue-->
+      <section class="q-pa-md q-mt-xl">
+        <div class="row">
+          <div class="col-md-2 offset-md-10 col-sm-4 offset-sm-8 col-6 offset-3 text-right"><a href="https://blue.mx/" target="_blank">
+              <q-img src="app/BluePowered.svg" style="max-width: 180px"></q-img></a></div>
+        </div>
+      </section>
+      <div class="bg-dark">
+        <div class="text-center q-py-xs">
+          <q-btn flat label="Términos y condiciones" color="white" dark no-caps @click="dialogTerminos=true"></q-btn>
+        </div>
+      </div>
+      <q-dialog v-model="dialogTerminos" full-width>
+        <q-card class="shadow-0" style="max-width: 800px">
+          <q-toolbar>
+            <q-toolbar-title class="text-primary text-body1 text-bold">Términos y condiciones de  Burbujas de Pintura</q-toolbar-title>
+            <q-btn v-close-popup icon="close" color="primary" flat></q-btn>
+          </q-toolbar>
+          <q-card-section>
+            <q-scroll-area style="height: 70vh;">
+              <div class="terminosycondiciones q-ma-lg">
+                <p><strong>Elección del certificado de regalo</strong></p>
+                <ul>
+                  <li>Los Participantes podrán elegir un certificado de regalo que podrán obtener sólo en caso de ser ganadores del juego.</li>
+                  <li>El Participante deberá elegir una marca o Establecimiento de certificado de regalo. Cada Establecimiento establece importes definidos por ellos mismos, por lo que es posible que algún momento no esté disponible el monto concreto indicado en el juego.</li>
+                  <li>BLUE PURE LOYALTY se reserva el derecho a modificar, en cualquier momento y sin previo aviso, los certificados de regalo que podrá elegir el participante.</li>
+                  <li>Los certificados de regalo facilitados por BLUE PURE LOYALTY a los ganadores provienen de Establecimientos y Tiendas que pertenecer a terceros. La entrega de los mismas no significa, en modo alguno, que BLUE PURE LOYALTY emita los mismos de forma directa, solo actúa como mero transmisor indirecto de los certificados de terceros y no representa o actúa por cuenta de dichas marcas, páginas web, logos y empresas registradas.</li>
+                </ul>
+                <p><strong>Entrega del certificado de regalo</strong></p>
+                <ul>
+                  <li>BLUE PURE LOYALTY enviará al Participante ganador vía email y/o SMS el certificado de regalo que haya seleccionado previamente.</li>
+                  <li>Los certificados de regalo entregados por BLUE PURE LOYALTY son emitidos por empresas terceras. En caso de que un certificado de regalo emitidos por un tercero no funcione correctamente, deberá resolver esta incidencia directamente con la empresa emisora. BLUE PURE nunca será responsable por dicha incidencia.</li>
+                  <li>BLUE PURE LOYALTY no se hace responsable de la pérdida, extravío o divulgación por error u omisión de la información incluida en los correos electrónicos y SMS enviados con los certificados de regalo entregados. En estos casos no se repondrá el certificado de regalo.</li>
+                  <li>BLUE PURE LOYALTY tampoco será responsable si no fuera posible entregar un certificado de regalo a un Participante si ha bloqueado su correo electrónico, si tiene un cortafuegos o si el correo electrónico es considerado SPAM por el proveedor de correo electrónico, si la bandeja de entrada se encuentra llena o por cualquier otro motivo tecnológico similar que escape a nuestro control.</li>
+                  <li>En caso de que un certificado de regalo, no funcione, sea errónea, tenga un saldo incorrecto, indique que ya ha sido utilizada o sufra cualquier otra incidencia, BLUE PURE LOYALTY no se hace responsable al no disponer de los medios para poder comprobar el estado de la tarjeta regalo en el sistema informático propio del emisor de la misma.</li>
+                  <li>BLUE PURE LOYALTY se reserva el derecho y la posibilidad de entregar el importe total del certificado de regalo final en varios certificados cuyos valores sumados sean equivalentes al importe total elegido por el Participante. Esto puede deberse a problemas de stock, cambios en los importes emitidos por las marcas u otros factores.</li>
+                  <li>Los certificados de regalo tendrán la vigencia y podrán utilizarse dentro del plazo específicamente indicado por cada Establecimiento, para adquirir bienes y servicios en las Tiendas que aceptan los certificados como medio de pago, en las condiciones de uso determinadas por los propios Establecimientos.</li>
+                  <li>Si el saldo disponible no es suficiente para ejecutar una compra en su totalidad, no se garantiza que todos los Establecimientos permitan el uso de los certificados de regalo junto con otros métodos de pago.</li>
+                  <li>El Participante debe tomar todas las medidas razonables para evitar la pérdida, el robo o el uso indebido de los certificados de regalo. BLUE PURE LOYALTY no es responsable de ninguna manera de la reposición de los certificados de regalo en dichos casos.</li>
+                  <li>BLUE PURE LOYALTY se exime de toda responsabilidad ante cualquier reclamo, solicitud, pérdida, costo, carga, responsabilidad y/o consecuencia perjudicial derivada de acciones y reclamos hechos por terceros y/o el Establecimiento contra BLUE PURE LOYALTY como consecuencia del uso impropio y/o ilícito de los certificados de regalo.</li>
+                  <li>BLUE PURE LOYALTY no será responsable, por ningún motivo y de ninguna manera, de los defectos o fallos de los bienes y servicios adquiridos con los certificados de regalo. Cualquier reembolso o devolución estará sujeta a las políticas del Establecimiento y las regulaciones aplicables y se deberá de dar seguimiento directamente con el Establecimiento.</li>
+                </ul>
+                <p><strong>Participación en el Juego</strong></p>
+                <ul>
+                  <li>Los Participantes podrán participar en el juego Burbujas de Pintura, acumularán un monto en puntos al finalizar el juego dependiendo de su destreza.</li>
+                  <li>Los puntos acumulados por los Participantes no tienen ningún valor y solamente es una referencia para determinar al Participante ganador en el juego.</li>
+                  <li>Durante la participación en el juego, BLUE PURE LOYALTY no es responsable de cualquier falla técnica que le impida jugar, finalizar el  juego o cualquier otra situación técnica que pueda afectar en la puntuación o finalización del juego por parte del Participante. </li>
+                </ul>
+                <p><strong>Comunicación</strong></p>
+                <ul>
+                  <li>Con el fin de enviar comunicaciones y recibir cualquier aclaración sobre el juego y los certificados de regalo, se pone a disposición de los Participantes el correo electrónico hircasa@bluegames.mx.</li>
+                </ul>
+              </div>
+            </q-scroll-area>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
+      <footer class="bg-info">
+        <div class="text-center q-py-sm"><a href="https://blue.mx/" target="_blank">
+            <q-img src="app/BlueCircle.svg" style="max-width: 40px;"></q-img></a></div>
+      </footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quasar@2.1.0/dist/quasar.umd.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="app/app.js"></script>
+  </body>
+</html>

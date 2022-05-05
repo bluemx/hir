@@ -1,0 +1,14 @@
+.row
+    .col-10.offset-1.text-center.q-py-md
+        .text-h5 Bienvenido a
+        .text-h4.text-bold.text-secondary Financiando tu casa
+        .text-h6.q-mt-md Antes de empezar, por favor indica el certificado electrónico que quisieras recibir en caso de resultar ganador.
+        //.text-h6.q-mt-md Selecciona tu certificado de valor indicado.
+
+section.bg-secondary.q-pa-md.rounded-borders.shadow-24(v-if="loading==false")
+    .row.q-mt-3.justify-center.q-col-gutter-md
+        .col-6.col-sm-3.col-md-2(v-for="(i, index) in certificados" @click="openit(i)")
+            q-card.shadow-0.cursor-pointer.bg-primary.rounded-borders
+                q-card-section.text-center.q-pa-xs
+                    div.bg-white.rounded-borders.q-pa-lg: q-img(:src="'app/cert/'+i[0]+'.png'" style="max-width: 120px")
+                    div.text-body1.text-bold.text-white {{i[2]}}

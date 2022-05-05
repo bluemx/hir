@@ -1,0 +1,19 @@
+section.q-pa-md.q-mt-xl: .row
+    .col-md-2.offset-md-10.col-sm-4.offset-sm-8.col-6.offset-3.text-right
+        a(href="https://blue.mx/" target="_blank"): q-img(src="app/BluePowered.svg" style="max-width: 180px")
+.bg-dark
+    .text-center.q-py-xs
+        q-btn(flat label="Términos y condiciones" color="white" dark no-caps @click="dialogTerminos=true")
+
+q-dialog(v-model="dialogTerminos" full-width)
+    q-card.shadow-0(style="max-width: 800px")
+        q-toolbar
+            q-toolbar-title.text-primary.text-body1.text-bold Términos y condiciones de  Burbujas de Pintura
+            q-btn(v-close-popup icon="close" color="primary" flat)
+        q-card-section
+            q-scroll-area(style="height: 70vh;")
+                .terminosycondiciones.q-ma-lg: include _terminos.pug
+
+footer.bg-info
+    .text-center.q-py-sm
+        a(href="https://blue.mx/" target="_blank"): q-img(src="app/BlueCircle.svg" style="max-width: 40px;")
