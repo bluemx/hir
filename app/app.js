@@ -1,4 +1,4 @@
-const api = "https://testing4.myblueengine.com/WebSiteHomeDepot/Services.aspx";
+const api = "https://testing4.myblueengine.com/HIRGame/Services.aspx";
 const { ref } = Vue;
 const { useQuasar } = Quasar;
 const app = Vue.createApp({
@@ -10,7 +10,7 @@ const app = Vue.createApp({
         "hircasa",
         '<p>Abona un pago a tu financiamiento con el valor de $5\'000.</p>',
         "$5'000",
-        "Amazon",
+        "Abono a Financiamiento HIR",
       ],
       [
         "amazon",

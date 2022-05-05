@@ -93,7 +93,27 @@
           </q-card>
         </q-dialog>
         <!--Ticket-->
-        <!--include app/pug/_ticket.pug-->
+        <q-dialog v-model="dialogTicket" persistent maximized>
+          <q-card class="bg-primary shadow-0">
+            <q-card-section class="text-white justify-center items-center flex column full-height q-mx-auto" style="max-width: 480px; ">
+              <div class="text-h6 text-bold">Ingresa tu número de ticket.</div>
+              <q-input class="bg-white rounded-borders q-my-md full-width" v-model="ticketNum" input-class="text-center" standout>
+                <template v-slot:prepend>
+                  <q-icon name="confirmation_number"></q-icon>
+                </template>
+              </q-input>
+              <q-btn @click="" label="Continuar" push size="lg" text-color="primary" color="white"></q-btn>
+              <!--q-btn(@click="ticketCheck" label="Continuar" push size="lg" text-color="primary" color="white")-->
+            </q-card-section>
+          </q-card>
+        </q-dialog>
+        <q-dialog v-model="dialogError" persistent maximized>
+          <q-card class="bg-primary shadow-0">
+            <q-card-section class="text-white justify-center items-center flex column full-height q-mx-auto" style="max-width: 480px; ">
+              <div class="text-h6 text-center text-bold" v-html="dialogErrorTxt"></div>
+            </q-card-section>
+          </q-card>
+        </q-dialog>
       </div>
       <!--Footer Blue-->
       <section class="q-pa-md q-mt-xl">
