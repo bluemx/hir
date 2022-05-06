@@ -883,7 +883,7 @@ class Room extends PIXI.Container {
             t.y > ct.camera.height && (t.kill = !0);
         }, 500);
       this.setScore = function (t) {
-        ct.sound.spawn("ok");
+        ct.sound.spawn("coin"+(t.type+1));
         var e = 0,
           o = t.type;
           0 == o && (e = 100),
@@ -4461,6 +4461,30 @@ function loadfonts() {
               name: "ok",
               wav: !1,
               mp3: "./snd/b955c811-ce69-4017-8cb2-51fc902aff7c.mp3",
+              ogg: !1,
+              poolSize: 2,
+              isMusic: !1,
+            },
+            {
+              name: "coin1",
+              wav: !1,
+              mp3: "./snd/coin1.mp3",
+              ogg: !1,
+              poolSize: 2,
+              isMusic: !1,
+            },
+            {
+              name: "coin2",
+              wav: !1,
+              mp3: "./snd/coin2.mp3",
+              ogg: !1,
+              poolSize: 2,
+              isMusic: !1,
+            },
+            {
+              name: "coin3",
+              wav: !1,
+              mp3: "./snd/coin3.mp3",
               ogg: !1,
               poolSize: 2,
               isMusic: !1,
