@@ -176,6 +176,7 @@ const app = Vue.createApp({
     };
 
     const surveyCheck = async () => {
+      console.log('surveyCheck')
       const res = await axios.post(api + "/ValidateSurvey", {
         SurveyID: surveyNum.value,
       });
@@ -199,7 +200,7 @@ const app = Vue.createApp({
       const queryString = window.location.search;
       const params = new URLSearchParams(queryString);
       const hasSurveyID = params.get("SurveyID");
-      if (hasSurveyID && hasSurveyID.length >= 14 && hasSurveyID.length <= 32) {
+      if (hasSurveyID && hasSurveyID.length >= 5 && hasSurveyID.length <= 6) {
         surveyNum.value = hasSurveyID;
         surveyCheck();
       } else {
