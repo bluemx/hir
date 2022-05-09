@@ -785,7 +785,7 @@ class Room extends PIXI.Container {
     onCreate() {
       loadfonts(),
         (this.title = new PIXI.Text(
-          "¡Evita la monedas rojas!, son Pagos No Puntuales",
+          "¡Evita las monedas rojas!, son Pagos No Puntuales",
           ct.MainFontBoldSM
         )),
         this.title.anchor.set(0.5, 0.5),
