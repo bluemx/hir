@@ -8,7 +8,7 @@ const app = Vue.createApp({
     const certificados = [
       [
         "hircasa",
-        '<p>Abona un pago a tu financiamiento con el valor de $5\'000.</p>',
+        '<p>Abona un pago a tu financiamiento con el valor de $5,000.</p>',
         "$5,000",
         "Abono a Financiamiento HIR",
       ],
