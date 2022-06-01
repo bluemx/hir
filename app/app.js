@@ -123,7 +123,7 @@ const app = Vue.createApp({
       } else {
         dialogError.value = true;
         dialogErrorTxt.value =
-          "Hemos registrado tu participación del día de hoy. <br>Gracias por tu opinión.";
+          "Hemos registrado tu participación. <br>Gracias.";
       }
     };
     const ticketCheck = () => {
