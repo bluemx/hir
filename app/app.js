@@ -26,11 +26,14 @@ const app = Vue.createApp({
       ],
       [
         "puntosfutbol",
-        "<p>Puntos Fútbol es una plataforma de entretenimiento para los fanátic@s del Fútbol, usa tu saldo para partiicpar en Trivias, Subastas, Marcadores y Retas donde podrás demostrar tus conocimientos y ganar increíbles premios.</p>",
+        "<p>Puntos Fútbol es una plataforma de entretenimiento para los fanátic@s del Fútbol, usa tu saldo para participar en Trivias, Subastas y Marcadores donde podrás demostrar tus conocimientos y ganar increíbles premios.</p>",
         "$5,000",
         "Puntos Futbol",
       ]
     ];
+
+
+
 
     const dialogCert = ref(false);
     const dialogTerminos = ref(false);
